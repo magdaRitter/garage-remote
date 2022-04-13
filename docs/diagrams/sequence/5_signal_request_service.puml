@@ -1,0 +1,11 @@
+@startuml
+
+participant SignalEngine as SC
+participant RequestService as RQS
+participant MessageBroker as MB
+
+SC -> RQS: start request service
+RQS -> RQS: encrypt request message
+RQS -> MB: send request message
+
+@enduml

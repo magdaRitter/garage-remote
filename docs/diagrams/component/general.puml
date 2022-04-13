@@ -1,0 +1,30 @@
+@startuml
+
+[Garage Remote] as GR
+[Raspi Remote] as RR
+
+cloud {
+[Message Broker] as MB
+}
+
+note as GR_Note
+    Web page app to trigger signals
+end note
+
+note as MB_Note
+    Passes requests
+    as messages over here
+end note
+
+note as RR_Note
+    Handles remote control signal
+end note
+
+GR -(0- MB
+MB -0)- RR
+
+GR .. GR_Note
+MB .. MB_Note
+RR .. RR_Note
+
+@enduml

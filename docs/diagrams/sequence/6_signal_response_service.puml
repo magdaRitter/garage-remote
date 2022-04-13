@@ -1,0 +1,13 @@
+@startuml
+
+participant SignalEngine as SC
+participant ResponseService as RPS
+participant MessageBroker as MB
+
+SC -> RPS: start response service
+RPS -> RPS: wait for response message
+MB --> RPS: deliver response message
+RPS -> RPS: decode response message
+RPS -> SC: send response
+
+@enduml

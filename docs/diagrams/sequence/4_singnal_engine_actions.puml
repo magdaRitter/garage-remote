@@ -1,0 +1,16 @@
+@startuml
+
+participant UserService as UC
+participant SignalEngine as SC
+participant RequestService as RQS
+participant ResponseService as RPS
+
+UC -> SC: start signal request
+
+SC -> RQS: start request service
+SC -> RPS: start response service
+
+RPS --> SC: send response
+SC -> UC: send request result
+
+@enduml

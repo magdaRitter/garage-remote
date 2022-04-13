@@ -1,0 +1,16 @@
+@startuml
+
+actor User
+participant GarageRemote as GR
+participant MessageBroker as MB
+participant RaspiRemote as RR
+
+User -> GR: send signal
+GR -> MB: send signal request message
+MB --> RR: deliver signal request message
+RR -> RR: trigger signal
+RR -> MB: send response status message
+MB --> GR: deliver response status message
+GR -> User: display result
+
+@enduml

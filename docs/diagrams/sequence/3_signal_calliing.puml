@@ -1,0 +1,18 @@
+@startuml
+
+actor User
+participant UserInterface as UI
+participant UserService as UC
+participant SignalEngine as SC
+
+alt authorization ok
+    User -> UI: pick signal
+    UI -> UC: request signal call
+    UC -> SC: start signal request
+    SC -> SC: handle signal request
+    SC --> UC: send response
+    UC -> UI: send request status
+    UI -> User: see result
+end
+
+@enduml

@@ -1,0 +1,32 @@
+@startuml
+
+package "Garage Remote"{
+    [User Interface] as UI
+    [User Service] as UC
+    [Authorization Handler] as AC
+    [Signal Engine] as SC
+}
+[Message Broker] as MB
+database "DB" as DB
+
+note as SC_Note
+- prepare messages
+- queue tasks
+- match request with response
+- handle errors
+end note
+
+note as AC_Note
+    Authorize app on Raspberry
+end note
+
+UI -(0- UC : Rest API
+UC -(0- AC
+UC -(0- SC
+SC -(0- MB
+AC -->DB
+
+SC .. SC_Note
+AC .. AC_Note
+
+@enduml

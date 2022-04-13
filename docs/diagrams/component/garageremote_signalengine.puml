@@ -1,0 +1,45 @@
+@startuml
+package "GarageRemote"{
+    [User Service] as UC
+    node "Signal Engine" as SC{
+        [Request] as RHC
+        [Response] as RPC
+        [Error Handler] as ERC
+        [Signal Broker] as SBC
+        [Response Matcher] as RMC
+        [Queue Handler] as QMC
+    }
+}
+[Message Broker] as MC
+
+note as RHC_Note
+    Prepare request message
+end note
+
+note as QMC_Note
+    Queue tasks
+end note
+
+note as RMC_Note
+    Match request
+    with response
+end note
+
+note as ERC_Note
+    Handle errors
+end note
+
+note as RPC_Note
+    Keeps the response
+end note
+
+UC --(0- SC
+SBC --(0- MC
+
+RHC .. RHC_Note
+QMC .. QMC_Note
+RMC ... RMC_Note
+ERC .. ERC_Note
+RPC .. RPC_Note
+
+@enduml

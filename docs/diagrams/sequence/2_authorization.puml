@@ -1,0 +1,20 @@
+@startuml
+
+actor User
+participant UserInterface as UI
+participant UserService as UC
+participant AuthorizationHandler as AC
+
+User -> UI: initiate login
+UI -> UC: login (credentials)
+UC -> AC: start authorization
+AC -> AC: authorize
+AC --> UC: finish authorization (status)
+UC -> UI: finish login (status)
+alt
+    UI -> User: "Ok..."
+else
+    UI -> User: "Nope..."
+end
+
+@enduml
