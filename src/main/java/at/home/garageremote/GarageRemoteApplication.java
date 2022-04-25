@@ -19,35 +19,35 @@ public class GarageRemoteApplication {
 	public static final String routingKey = "garage.remote.channel";
 	static final String queueName = "garage-remote";
 
-    @Bean
-	Queue queue() {
-		return new Queue(queueName, false);
-	}
+//    @Bean
+//	Queue queue() {
+//		return new Queue(queueName, false);
+//	}
+//
+//	@Bean
+//	TopicExchange exchange() {
+//		return new TopicExchange(topicExchangeName);
+//	}
+//
+//	@Bean
+//	Binding binding(Queue queue, TopicExchange exchange) {
+//		return BindingBuilder.bind(queue).to(exchange).with("garage.remote.*");
+//	}
 
-	@Bean
-	TopicExchange exchange() {
-		return new TopicExchange(topicExchangeName);
-	}
-
-	@Bean
-	Binding binding(Queue queue, TopicExchange exchange) {
-		return BindingBuilder.bind(queue).to(exchange).with("garage.remote.#");
-	}
-
-	@Bean
-	SimpleMessageListenerContainer container(ConnectionFactory connectionFactory,
-											 MessageListenerAdapter listenerAdapter) {
-		SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
-		container.setConnectionFactory(connectionFactory);
-		container.setQueueNames(queueName);
-		container.setMessageListener(listenerAdapter);
-		return container;
-	}
-
-	@Bean
-	MessageListenerAdapter listenerAdapter(MessageReceiver messageReceiver) {
-		return new MessageListenerAdapter(messageReceiver, "receiveMessage");
-	}
+//	@Bean
+//	SimpleMessageListenerContainer container(ConnectionFactory connectionFactory,
+//											 MessageListenerAdapter listenerAdapter) {
+//		SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
+//		container.setConnectionFactory(connectionFactory);
+//		container.setQueueNames(queueName);
+//		container.setMessageListener(listenerAdapter);
+//		return container;
+//	}
+//
+//	@Bean
+//	MessageListenerAdapter listenerAdapter(MessageReceiver messageReceiver) {
+//		return new MessageListenerAdapter(messageReceiver, "receiveMessage");
+//	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(GarageRemoteApplication.class, args);

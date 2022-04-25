@@ -3,12 +3,27 @@
 <head>
     <title>Garage Remote</title>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
 </head>
 <body>
+<div>
+        <h1>Message box</h1>
+        <h2>
+            <span th:text="${messagePrompt}"></span>
+        </h2>
+</div>
+<div>
 <form th:action="@{/home}" method="post">
-    <input type="image" name="garage" th:src="@{/icons/garage.png}" alt="garage button"></input>
-    <input type="image" name="gate" src="../icons/gate.png" alt="gate button"></input>
+    <table>
+        <tr>
+            <td><input type="image" name="garage" th:src="@{/icons/garage.png}" alt="garage button"></input></td>
+        </tr>
+        <tr>
+            <td><input type="image" name="gate" src="../icons/gate.png" alt="gate button"></input></td>
+        </tr>
+    </table>
 </form>
-
+</div>
 </body>
 </html>

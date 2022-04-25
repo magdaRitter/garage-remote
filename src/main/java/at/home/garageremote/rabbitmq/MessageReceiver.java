@@ -6,8 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.concurrent.CountDownLatch;
-
 @Slf4j
 @Component
 @Getter
@@ -15,11 +13,16 @@ public class MessageReceiver {
 
     @Autowired
     private NotificationHandler notificationHandler;
-    private final CountDownLatch latch = new CountDownLatch(1);
 
-
-    public void receiveMessage(String message) {
-        latch.countDown();
+    public void receiveMessage(byte[] bytes) {
+        String message = new String(bytes);
+        log.info("Received <" + message + ">");
         notificationHandler.publishNotification(message);
     }
+
+    public void receiveMessage(String message) {
+        log.info("Received <" + message + ">");
+        notificationHandler.publishNotification(message);
+    }
+
 }

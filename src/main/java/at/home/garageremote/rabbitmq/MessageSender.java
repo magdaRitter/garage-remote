@@ -6,8 +6,6 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.concurrent.TimeUnit;
-
 @Slf4j
 @Component
 public class MessageSender {
@@ -20,9 +18,8 @@ public class MessageSender {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    public void sendMessage(String message) throws InterruptedException {
+    public void sendMessage(String message) {
         rabbitTemplate.convertAndSend(GarageRemoteApplication.topicExchangeName, GarageRemoteApplication.routingKey, message);
-//        messageReceiver.getLatch().await(10000, TimeUnit.MILLISECONDS);
 
         log.debug("Message was sent out");
     }
