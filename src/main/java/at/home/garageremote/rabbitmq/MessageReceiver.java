@@ -16,12 +16,12 @@ public class MessageReceiver {
 
     public void receiveMessage(byte[] bytes) {
         String message = new String(bytes);
-        log.info("Received <" + message + ">");
+        log.info("Received as bytes <" + message + ">");
         notificationHandler.publishNotification(message);
     }
 
     public void receiveMessage(String message) {
-        log.info("Received <" + message + ">");
+        log.info("Received as string <" + message + ">");
         notificationHandler.publishNotification(message);
     }
 
