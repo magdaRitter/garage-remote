@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class SignalStarter {
 
-    private SignalHandler signalHandler;
+    private final SignalHandler signalHandler;
 
     @Autowired
     public SignalStarter(SignalHandler signalHandler) {

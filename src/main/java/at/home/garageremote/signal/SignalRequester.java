@@ -1,5 +1,6 @@
 package at.home.garageremote.signal;
 
+import at.home.garageremote.cipher.Encryptor;
 import at.home.garageremote.rabbitmq.MessageSender;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,10 @@ import java.util.UUID;
 @Component
 public class SignalRequester {
 
-    private MessageSender messageSender;
+    private final MessageSender messageSender;
+
+    @Autowired
+    private Encryptor encryptor;
 
     @Autowired
     public SignalRequester(MessageSender messageSender) {
@@ -26,15 +30,14 @@ public class SignalRequester {
         log.debug("Preparing message");
         String message = signalType.toString() + "_" + id.toString();
 
-        // encrypt message
-        log.debug("Encrypting message");
-
-        // send message
-        log.debug("Sending message");
+        // encrypt and send message
+        log.debug("Encrypting and sending message");
         try {
-            messageSender.sendMessage(message);
+            byte[] encryptedMessage = encryptor.encrypt(message);
+            messageSender.sendMessage(encryptedMessage);
             result = true;
         } catch (Exception e) {
+            log.debug("Could not send encrypted message!");
             e.printStackTrace();
         }
 

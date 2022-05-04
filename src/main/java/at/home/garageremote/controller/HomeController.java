@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/home")
 public class HomeController implements ApplicationListener<NotificationEvent> {
 
-    private SignalStarter signalStarter;
+    private final SignalStarter signalStarter;
 
     @Autowired
     public HomeController(SignalStarter signalStarter) {

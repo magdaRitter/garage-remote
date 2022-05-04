@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class NotificationParser {
+
     public String parse(final String message) {
         String retValue = message;
 

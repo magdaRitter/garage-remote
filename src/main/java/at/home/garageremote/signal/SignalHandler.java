@@ -10,7 +10,7 @@ import java.util.UUID;
 @Component
 public class SignalHandler {
 
-    private SignalRequester signalRequester;
+    private final SignalRequester signalRequester;
 
     @Autowired
     public SignalHandler(SignalRequester signalRequester) {

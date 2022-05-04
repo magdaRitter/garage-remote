@@ -6,7 +6,7 @@ import org.springframework.context.ApplicationEvent;
 @Getter
 public class NotificationEvent extends ApplicationEvent {
 
-    private String notification;
+    private final String notification;
 
     public NotificationEvent(Object source, String notification) {
         super(source);

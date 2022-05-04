@@ -10,16 +10,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class MessageSender {
     private final RabbitTemplate rabbitTemplate;
-    private final MessageReceiver messageReceiver;
 
     @Autowired
-    public MessageSender(MessageReceiver messageReceiver, RabbitTemplate rabbitTemplate) {
-        this.messageReceiver = messageReceiver;
+    public MessageSender(RabbitTemplate rabbitTemplate) {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    public void sendMessage(String message) {
-        rabbitTemplate.convertAndSend(GarageRemoteApplication.topicExchangeName, GarageRemoteApplication.routingKey, message);
+    public void sendMessage(byte[] encryptedMessageBytes) {
+        rabbitTemplate.convertAndSend(Configurator.topicExchangeName, Configurator.routingKey, encryptedMessageBytes);
 
         log.debug("Message was sent out");
     }
