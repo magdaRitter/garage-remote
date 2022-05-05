@@ -1,18 +1,19 @@
 package at.home.garageremote.controller;
 
 import at.home.garageremote.event.NotificationEvent;
+import at.home.garageremote.signal.SignalRequestType;
+import at.home.garageremote.signal.SignalResponse;
 import at.home.garageremote.signal.SignalStarter;
+import at.home.garageremote.signal.SignalType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
-@Controller
+@RestController
 @RequestMapping("/home")
+@CrossOrigin(origins = "http://localhost:3000")
 public class HomeController implements ApplicationListener<NotificationEvent> {
 
     private final SignalStarter signalStarter;
@@ -22,33 +23,16 @@ public class HomeController implements ApplicationListener<NotificationEvent> {
         this.signalStarter = signalStarter;
     }
 
-    @GetMapping
-    public String getHomeForm() {
-        return "home";
-    }
-
-    @PostMapping(params = "garage")
-    public String garage() {
-        String result = "error";
-        boolean requestSentProperly = signalStarter.startGarageSignalRequest();
-
-        if(requestSentProperly){
-            result = "home";
+    @PostMapping(value = "/signal")
+    SignalResponse garage(@RequestBody SignalRequestType signalRequestType){
+        if(signalRequestType.getSignalType() == SignalType.GARAGE){
+            return new SignalResponse(signalStarter.startGarageSignalRequest());
+        }
+        if(signalRequestType.getSignalType() == SignalType.GATE){
+            return new SignalResponse(signalStarter.startGateSignalRequest());
         }
 
-        return result;
-    }
-
-    @PostMapping(params = "gate")
-    public String gate() {
-        String result = "error";
-        boolean requestSentProperly = signalStarter.startGateSignalRequest();
-
-        if(requestSentProperly){
-            result = "home";
-        }
-
-        return result;
+        return new SignalResponse(false);
     }
 
     @Override

@@ -1,10 +1,10 @@
 package at.home.garageremote.cipher;
 
+import at.home.garageremote.exception.MissingKeyException;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.Cipher;
 import java.io.File;
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
@@ -38,11 +38,10 @@ public class Encryptor {
         return encryptCipher.doFinal(encryptedMessageBytes);
     }
 
-    private File getFileFromResource(String fileName) throws IOException {
-
+    private File getFileFromResource(String fileName){
         File file = new File(fileName);
         if(!file.exists()){
-            throw new IOException("File not found! " + fileName);
+            throw new MissingKeyException("Could not find key");
         }
 
         return file;
