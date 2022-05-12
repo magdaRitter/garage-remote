@@ -31,6 +31,9 @@ public class HomeController implements ApplicationListener<NotificationEvent> {
         if(signalRequestType.getSignalType() == SignalType.GATE){
             return new SignalResponse(signalStarter.startGateSignalRequest());
         }
+        if(signalRequestType.getSignalType() == SignalType.BOTH){
+            return new SignalResponse(signalStarter.startBothSignalRequests());
+        }
 
         return new SignalResponse(false);
     }

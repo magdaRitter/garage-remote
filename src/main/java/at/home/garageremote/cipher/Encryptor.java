@@ -40,8 +40,8 @@ public class Encryptor {
     }
 
     private File getFileFromResource(String fileName) {
-//        File file = new File(fileName);
-        File file = new File(this.getClass().getClassLoader().getResource(fileName).getFile());
+        File file = new File(fileName);
+//        File file = new File(this.getClass().getClassLoader().getResource(fileName).getFile());
         if (!file.exists()) {
             throw new MissingKeyException("Could not find key");
         }

@@ -26,4 +26,10 @@ public class SignalStarter {
 
         return signalHandler.requestSignal(SignalType.GARAGE);
     }
+
+    public boolean startBothSignalRequests(){
+        log.debug("Request for both signals will be fired");
+
+        return signalHandler.requestSignal(SignalType.BOTH);
+    }
 }
