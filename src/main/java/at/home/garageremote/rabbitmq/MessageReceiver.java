@@ -18,11 +18,11 @@ public class MessageReceiver {
     private Encryptor encryptor;
 
     public void receiveMessage(byte[] bytes) {
-        String message;
-        log.info("Received message from rabbit as bytes");
+        String message = new String(bytes);
+        log.info("Received message from rabbit as bytes " + message);
 
         try {
-            message = encryptor.decrypt(bytes);
+            message = encryptor.decrypt(message);
             notificationHandler.publishNotification(message);
         } catch (Exception e) {
             e.printStackTrace();

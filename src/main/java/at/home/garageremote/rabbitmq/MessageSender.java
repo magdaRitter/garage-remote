@@ -1,6 +1,7 @@
 package at.home.garageremote.rabbitmq;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.AmqpException;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,7 +17,12 @@ public class MessageSender {
     }
 
     public void sendMessage(byte[] encryptedMessageBytes) {
-        rabbitTemplate.convertAndSend(Configurator.topicExchangeName, Configurator.routingKey, encryptedMessageBytes);
+        try {
+            rabbitTemplate.convertAndSend(Configurator.topicExchangeName, Configurator.routingKey, encryptedMessageBytes);
+        } catch (AmqpException e) {
+            e.printStackTrace();
+            log.error("AMQp exception was thrown while trying to send message");
+        }
 
         log.debug("Message was sent out");
     }

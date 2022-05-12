@@ -22,13 +22,14 @@ services:
       - rabbitmq
 
   garageRemoteFrontApp:
-    image: garage-remote-front-app
-    build:
-      context: ../garage-remote-front-app
-      dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
-      - "5000:5000"
-    restart: always
-    depends_on:
-      - garageRemote
+     image: garage-remote-front-app
+     build:
+       context: ../garage-remote-front-app
+       dockerfile: Dockerfile
+     ports:
+       - "3000:3000"
+       - "5000:5000"
+     restart: always
+     depends_on:
+       - rabbitmq
+       - garageRemote
