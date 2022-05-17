@@ -37,7 +37,7 @@ public class SignalRequester {
             messageSender.sendMessage(encryptedMessage);
             result = true;
         } catch (Exception e) {
-            log.debug("Could not send encrypted message!");
+            log.error("Could not send out encrypted request message!");
             e.printStackTrace();
         }
 

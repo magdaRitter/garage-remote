@@ -25,13 +25,16 @@ public class HomeController implements ApplicationListener<NotificationEvent> {
 
     @PostMapping(value = "/signal")
     SignalResponse garage(@RequestBody SignalRequestType signalRequestType){
-        if(signalRequestType.getSignalType() == SignalType.GARAGE){
+        SignalType signalType = signalRequestType.getSignalType();
+        log.info("Signal request of type " + signalType.name() +  " was received");
+
+        if(signalType == SignalType.GARAGE){
             return new SignalResponse(signalStarter.startGarageSignalRequest());
         }
-        if(signalRequestType.getSignalType() == SignalType.GATE){
+        if(signalType == SignalType.GATE){
             return new SignalResponse(signalStarter.startGateSignalRequest());
         }
-        if(signalRequestType.getSignalType() == SignalType.BOTH){
+        if(signalType == SignalType.BOTH){
             return new SignalResponse(signalStarter.startBothSignalRequests());
         }
 

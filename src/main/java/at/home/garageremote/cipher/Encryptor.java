@@ -43,7 +43,7 @@ public class Encryptor {
         File file = new File(fileName);
 //        File file = new File(this.getClass().getClassLoader().getResource(fileName).getFile());
         if (!file.exists()) {
-            throw new MissingKeyException("Could not find key");
+            throw new MissingKeyException("Could not find requested key!");
         }
 
         return file;
